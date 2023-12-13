@@ -2,3 +2,8 @@ DROP DATABASE IF EXISTS staff_db;
 CREATE DATABASE staff_db;
 
 USE staff_db;
+
+CREATE TABLE department (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(30) NOT NULL
+);
