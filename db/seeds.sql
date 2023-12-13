@@ -18,3 +18,17 @@ VALUES  ("Engineering Manager", 120000, 1),
         ("Salesperson", 65000, 4),
         ("Legal Manager", 110000, 5),
         ("Lawyer", 95000, 5);
+
+INSERT INTO employee (first_name, last_name, role_id, manager_id)
+VALUES  ("Roxy", "Say",  1, NULL),
+        ("Jane", "Doe",  2, 1),
+        ("Janet", "Doe",  3, 1), 
+        ("Jennifer", "Doe",  4, NULL), 
+        ("Julia", "Doe",  5, 4),
+        ("Joyce", "Dave",  6, NULL), 
+        ("John", "Dave",  7, 6), 
+        ("Chris", "Dave",  8, 6), 
+        ("June", "Dai",  9, NULL), 
+        ("Steven", "Dai",  10, 9), 
+        ("Jocelyn", "Davalos",  11, NULL), 
+        ("Joseph", "Davalos",  12, 11);
