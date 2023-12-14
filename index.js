@@ -95,6 +95,13 @@ async function dbConnection(select) {
                         message: "Enter New Role Department:",
                     },
                 ]);
+                // Destructure returnedOutputFromInq
+        const { roleName, roleSalary, roleDpt } = returnedOutputFromInq;
+
+        // Make a variable to store value from the DB call to get department id
+        const returnDepartmentId = await db.query(
+          `SELECT IFNULL((SELECT id FROM department WHERE name = "${roleDpt}"), "Department Does Not Exist")`
+        );
         }
     }
     catch (err) {
