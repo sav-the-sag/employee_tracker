@@ -76,6 +76,25 @@ async function dbConnection(select) {
                 } catch (error) {
                     console.log("Cannot insert duplicate Department");
                 }
+                break;
+
+            // enter name, salary, department; role added to db
+            case "Add a Role":
+                // Prompt user for values needed for new Role
+                returnedOutputFromInq = await inquirer.prompt([
+                    {
+                        name: "roleName",
+                        message: "Enter New Role Name:",
+                    },
+                    {
+                        name: "roleSalary",
+                        message: "Enter New Role Salary:",
+                    },
+                    {
+                        name: "roleDpt",
+                        message: "Enter New Role Department:",
+                    },
+                ]);
         }
     }
     catch (err) {
