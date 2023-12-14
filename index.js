@@ -102,6 +102,9 @@ async function dbConnection(select) {
         const returnDepartmentId = await db.query(
           `SELECT IFNULL((SELECT id FROM department WHERE name = "${roleDpt}"), "Department Does Not Exist")`
         );
+        // Write a query to get the department id from the name
+        const [rows] = returnDepartmentId;
+        const department_id = Object.values(rows[0])[0];
         }
     }
     catch (err) {
