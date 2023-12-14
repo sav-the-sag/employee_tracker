@@ -60,6 +60,14 @@ async function dbConnection(select) {
                 `);
                 console.table(returnedRowsFromDb[0]);
                 break;
+            // enter name; department added to db
+            case "Add a Department":
+                returnedOutputFromInq = await inquirer.prompt([
+                    {
+                        name: "department",
+                        message: "Enter New Department Name:",
+                    },
+                ]);
         }
     }
     catch (err) {
