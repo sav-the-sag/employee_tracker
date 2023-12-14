@@ -68,6 +68,14 @@ async function dbConnection(select) {
                         message: "Enter New Department Name:",
                     },
                 ]);
+                try {
+                    // Run the update query here:
+                    returnedRowsFromDb = await db.query(
+                        `INSERT INTO department (name) VALUES ('${returnedOutputFromInq.department}');`
+                    );
+                } catch (error) {
+                    console.log("Cannot insert duplicate Department");
+                }
         }
     }
     catch (err) {
