@@ -137,6 +137,26 @@ async function dbConnection(select) {
                         message: "Enter New Employee's Manager:",
                     },
                 ]);
+                const allRoles = await db.query("SELECT * from role;");
+
+                const allManagers = await db.query(
+                    "SELECT * from employee where manager_id is null;"
+                );
+
+                const { first_name, last_name, role, manager } = returnedOutputFromInq;
+                const role_data = allRoles[0].filter((r) => {
+                    return r.title === role;
+                  });
+          
+                const manager_data = allManagers[0].filter((m) => {
+                    return `${m.first_name} ${m.last_name}` === manager;
+                  });
+          
+                returnedRowsFromDb = await db.query(
+                    `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ('${first_name}', '${last_name}', ${role_data[0].id}, ${manager_data[0].id})`
+                  );
+          
+                break;
         }
     }
     catch (err) {
