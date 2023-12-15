@@ -230,7 +230,13 @@ function userPrompt() {
             await dbConnection(res.select);
             res.select === "Quit" ? process.exit() : userPrompt();
         })
-        .catch(err);
+        .catch((err) => {
+            if (error.isTtyError) {
+            } else {
+              err;
+            }
+          });
+      
 }
 
 userPrompt();
