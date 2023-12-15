@@ -105,6 +105,18 @@ async function dbConnection(select) {
         // Write a query to get the department id from the name
         const [rows] = returnDepartmentId;
         const department_id = Object.values(rows[0])[0];
+        // Check to see if the id exist in the DB or not and return a "Department Doesn't Exist!" or something like that
+        if (department_id === "Department Does Not Exist") {
+            console.log("Enter a Role in an Existing Department!");
+            break;
+          }
+  
+          // Write the query to add a role to the db:
+          returnedRowsFromDb = await db.query(
+            ` INSERT INTO role (title, salary, department_id) VALUES ('${roleName}', '${roleSalary}', '${department_id}');`
+          );
+  
+          break;
         }
     }
     catch (err) {
