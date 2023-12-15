@@ -189,6 +189,15 @@ async function dbConnection(select) {
                       choices: roleList,
                     },
                   ]);
+                  console.log(returnedOutputFromInq);
+
+        // Run the update query here:
+        returnedRowsFromDb = await db.query(`
+                    UPDATE employee
+                    SET role_id = ${returnedOutputFromInq.newRole}
+                    WHERE employee.id = ${returnedOutputFromInq.employeeId};`);
+
+        break;
         }
     }
     catch (err) {
