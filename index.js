@@ -175,6 +175,20 @@ async function dbConnection(select) {
                         value: role.id,
                     };
                 });
+                returnedOutputFromInq = await inquirer.prompt([
+                    {
+                      type: "list",
+                      name: "employeeId",
+                      message: "Choose Which Employee to Update:",
+                      choices: employeeList,
+                    },
+                    {
+                      type: "list",
+                      name: "newRole",
+                      message: "Please Enter Employee's New Role:",
+                      choices: roleList,
+                    },
+                  ]);
         }
     }
     catch (err) {
