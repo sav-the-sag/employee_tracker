@@ -1,6 +1,6 @@
 // importing package files
 const inquirer = require("inquirer");
-const mysql = require("mysql2");
+const mysql = require("mysql2/promise");
 
 // Encryption for env file
 require("dotenv").config();
