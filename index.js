@@ -164,3 +164,32 @@ async function dbConnection(select) {
 
     }
 }
+
+function userPrompt() {
+    inquirer
+      .prompt([
+        {
+          type: "list",
+          name: "select",
+          message: "What would you like to do?",
+          choices: [
+            "View All Departments",
+            "View All Roles",
+            "View All Employees",
+            "Add a Department",
+            "Add a Role",
+            "Add an Employee",
+            "Update an Employee Role",
+            new inquirer.Separator(),
+            "Quit",
+          ],
+        },
+      ])
+      .then(async (res) => {
+        await dbConnection(res.select);
+        res.select === "Quit" ? process.exit() : userPrompt();
+      })
+      .catch(err);
+  }
+  
+userPrompt();
