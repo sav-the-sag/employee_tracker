@@ -146,17 +146,21 @@ async function dbConnection(select) {
                 const { first_name, last_name, role, manager } = returnedOutputFromInq;
                 const role_data = allRoles[0].filter((r) => {
                     return r.title === role;
-                  });
-          
+                });
+
                 const manager_data = allManagers[0].filter((m) => {
                     return `${m.first_name} ${m.last_name}` === manager;
-                  });
-          
+                });
+
                 returnedRowsFromDb = await db.query(
                     `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ('${first_name}', '${last_name}', ${role_data[0].id}, ${manager_data[0].id})`
-                  );
-          
+                );
+
                 break;
+            // select employee, update role; updated in db
+            case "Update an Employee Role":
+                currentEmployees = await db.query(`
+                SELECT id, first_name, last_name FROM employee;`);
         }
     }
     catch (err) {
@@ -167,29 +171,29 @@ async function dbConnection(select) {
 
 function userPrompt() {
     inquirer
-      .prompt([
-        {
-          type: "list",
-          name: "select",
-          message: "What would you like to do?",
-          choices: [
-            "View All Departments",
-            "View All Roles",
-            "View All Employees",
-            "Add a Department",
-            "Add a Role",
-            "Add an Employee",
-            "Update an Employee Role",
-            new inquirer.Separator(),
-            "Quit",
-          ],
-        },
-      ])
-      .then(async (res) => {
-        await dbConnection(res.select);
-        res.select === "Quit" ? process.exit() : userPrompt();
-      })
-      .catch(err);
-  }
-  
+        .prompt([
+            {
+                type: "list",
+                name: "select",
+                message: "What would you like to do?",
+                choices: [
+                    "View All Departments",
+                    "View All Roles",
+                    "View All Employees",
+                    "Add a Department",
+                    "Add a Role",
+                    "Add an Employee",
+                    "Update an Employee Role",
+                    new inquirer.Separator(),
+                    "Quit",
+                ],
+            },
+        ])
+        .then(async (res) => {
+            await dbConnection(res.select);
+            res.select === "Quit" ? process.exit() : userPrompt();
+        })
+        .catch(err);
+}
+
 userPrompt();
