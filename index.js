@@ -165,10 +165,16 @@ async function dbConnection(select) {
                 SELECT id, title FROM role;`);
                 const employeeList = currentEmployees[0].map((employee) => {
                     return {
-                      name: `${employee["first_name"]} ${employee.last_name}`,
-                      value: employee.id,
+                        name: `${employee["first_name"]} ${employee.last_name}`,
+                        value: employee.id,
                     };
-                  });
+                });
+                const roleList = currentRoles[0].map((role) => {
+                    return {
+                        name: role.title,
+                        value: role.id,
+                    };
+                });
         }
     }
     catch (err) {
