@@ -161,6 +161,14 @@ async function dbConnection(select) {
             case "Update an Employee Role":
                 currentEmployees = await db.query(`
                 SELECT id, first_name, last_name FROM employee;`);
+                currentRoles = await db.query(`
+                SELECT id, title FROM role;`);
+                const employeeList = currentEmployees[0].map((employee) => {
+                    return {
+                      name: `${employee["first_name"]} ${employee.last_name}`,
+                      value: employee.id,
+                    };
+                  });
         }
     }
     catch (err) {
