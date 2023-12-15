@@ -96,27 +96,47 @@ async function dbConnection(select) {
                     },
                 ]);
                 // Destructure returnedOutputFromInq
-        const { roleName, roleSalary, roleDpt } = returnedOutputFromInq;
+                const { roleName, roleSalary, roleDpt } = returnedOutputFromInq;
 
-        // Make a variable to store value from the DB call to get department id
-        const returnDepartmentId = await db.query(
-          `SELECT IFNULL((SELECT id FROM department WHERE name = "${roleDpt}"), "Department Does Not Exist")`
-        );
-        // Write a query to get the department id from the name
-        const [rows] = returnDepartmentId;
-        const department_id = Object.values(rows[0])[0];
-        // Check to see if the id exist in the DB or not and return a "Department Doesn't Exist!" or something like that
-        if (department_id === "Department Does Not Exist") {
-            console.log("Enter a Role in an Existing Department!");
-            break;
-          }
-  
-          // Write the query to add a role to the db:
-          returnedRowsFromDb = await db.query(
-            ` INSERT INTO role (title, salary, department_id) VALUES ('${roleName}', '${roleSalary}', '${department_id}');`
-          );
-  
-          break;
+                // Make a variable to store value from the DB call to get department id
+                const returnDepartmentId = await db.query(
+                    `SELECT IFNULL((SELECT id FROM department WHERE name = "${roleDpt}"), "Department Does Not Exist")`
+                );
+                // Write a query to get the department id from the name
+                const [rows] = returnDepartmentId;
+                const department_id = Object.values(rows[0])[0];
+                // Check to see if the id exist in the DB or not and return a "Department Doesn't Exist!" or something like that
+                if (department_id === "Department Does Not Exist") {
+                    console.log("Enter a Role in an Existing Department!");
+                    break;
+                }
+
+                // Write the query to add a role to the db:
+                returnedRowsFromDb = await db.query(
+                    ` INSERT INTO role (title, salary, department_id) VALUES ('${roleName}', '${roleSalary}', '${department_id}');`
+                );
+
+                break;
+            // enter employee fname, lname, role, manager; employee added to db
+            case "Add an Employee":
+                returnedOutputFromInq = await inquirer.prompt([
+                    {
+                        name: "first_name",
+                        message: "Enter New Employee's First Name:",
+                    },
+                    {
+                        name: "last_name",
+                        message: "Enter New Employee's Last Name:",
+                    },
+                    {
+                        name: "role",
+                        message: "Enter New Employee's Role:",
+                    },
+                    {
+                        name: "manager",
+                        message: "Enter New Employee's Manager:",
+                    },
+                ]);
         }
     }
     catch (err) {
